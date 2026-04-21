@@ -1,0 +1,46 @@
+{
+  "skill_name": "mcp2cli-connector",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Connect to the DeepWiki MCP server at https://mcp.deepwiki.com/mcp and ask how React's Fiber architecture works",
+      "expected_output": "Uses mcp2cli to connect to the MCP server, discovers tools, and executes the ask-question tool",
+      "expectations": [
+        "Uses mcp2cli --mcp https://mcp.deepwiki.com/mcp",
+        "Uses --pretty flag for readable output",
+        "Either uses --list first or directly calls ask-question",
+        "Uses --stdin for JSON arguments or passes args directly"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I have an OpenAPI spec at https://api.example.com/openapi.json. How do I expose it as CLI commands?",
+      "expected_output": "Explains mcp2cli workflow and provides example commands",
+      "expectations": [
+        "Mentions mcp2cli --spec flag",
+        "Shows --list for discovery",
+        "Shows example of calling a specific endpoint"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Use the MCP server at https://weather.example.com/mcp to get the weather for San Francisco",
+      "expected_output": "Connects to MCP server, discovers weather tool, and executes it with the city argument",
+      "expectations": [
+        "Uses mcp2cli --mcp https://weather.example.com/mcp",
+        "Discovers tools with --list first OR directly calls the weather tool",
+        "Passes 'San Francisco' as argument to the weather tool"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "What is mcp2cli and how can it help me use MCP servers more efficiently?",
+      "expected_output": "Explains mcp2cli's purpose, token savings, and basic usage",
+      "expectations": [
+        "Explains token savings (95-99%)",
+        "Mentions lazy discovery pattern (--list, --help)",
+        "Mentions support for MCP, OpenAPI, GraphQL"
+      ]
+    }
+  ]
+}

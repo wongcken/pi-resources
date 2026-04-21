@@ -1,0 +1,2 @@
+=== ADVERSARIAL TEST 1: April 15 Replay ===
+Deleted lines 477-490 from `/tmp/april15-test.txt`. The file only had 490 lines, so the requested range 477-516 was truncated to the available lines (477-490). The file now ends at line 476.

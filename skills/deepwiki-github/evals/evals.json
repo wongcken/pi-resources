@@ -1,0 +1,38 @@
+{
+  "skill_name": "deepwiki-github",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Tell me about the architecture of the facebook/react repository",
+      "expected_output": "AI-generated documentation about React's architecture including Fiber, components, and internal structure",
+      "files": [],
+      "expectations": [
+        "The response includes information about React's architecture",
+        "The skill used mcp2cli to query the DeepWiki MCP server",
+        "The repo-name argument is formatted as 'facebook/react'"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "What topics are documented in the kubernetes/kubernetes repo?",
+      "expected_output": "A structured list of documentation topics and sections for the Kubernetes repository",
+      "files": [],
+      "expectations": [
+        "The response lists documentation topics for kubernetes/kubernetes",
+        "The read-wiki-structure tool was used",
+        "Output is formatted and readable"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "How does the virtual DOM work in React?",
+      "expected_output": "An AI-powered answer explaining React's virtual DOM implementation",
+      "files": [],
+      "expectations": [
+        "The response explains the virtual DOM concept",
+        "The ask-question tool was used with the repo 'facebook/react'",
+        "The answer is detailed and technical"
+      ]
+    }
+  ]
+}

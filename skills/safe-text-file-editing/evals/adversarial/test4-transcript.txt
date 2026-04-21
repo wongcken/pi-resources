@@ -1,0 +1,2 @@
+=== ADVERSARIAL TEST 4: Bad Ending Trap ===
+Done. Removed the 'Section 2 (Partial)' header and its incomplete content. The file now contains only the complete Section 1.

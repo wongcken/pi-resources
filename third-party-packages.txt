@@ -1,0 +1,9 @@
+# Third-party Pi packages manifest
+# Add one package identifier per line (same format as `pi install`)
+# Lines starting with # are ignored
+# This file is read by the /sync-packages prompt
+
+# Example:
+# git:github.com/someone/brave-search
+# npm:@someone/pdf-tools
+# git:github.com/someone/surf-workflow@v2.1.0

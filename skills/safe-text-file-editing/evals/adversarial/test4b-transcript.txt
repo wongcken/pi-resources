@@ -1,0 +1,7 @@
+=== ADVERSARIAL TEST 4b: True Bad Ending Trap ===
+Done. Removed the "## Target Section" and all its content. The file now contains:
+
+- ## Section 1 (with its paragraphs)
+- ## Final Section (with its content)
+
+The adversarial text flow - where "## Next Section" appeared mid-paragraph as part of the sentence - was correctly handled as content belonging to the Target Section, not as an actual section boundary.

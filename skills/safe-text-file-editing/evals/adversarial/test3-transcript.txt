@@ -1,0 +1,2 @@
+=== ADVERSARIAL TEST 3: Encoding Preservation (CRLF) ===
+Done. Added "New line added" at the end of `/tmp/crlf-test.txt`.
