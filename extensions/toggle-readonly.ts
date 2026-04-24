@@ -16,11 +16,15 @@
  */
 
 import type { ExtensionAPI, ExtensionContext } from "@mariozechner/pi-coding-agent";
+import { createReadOnlyTools, createCodingTools } from "@mariozechner/pi-coding-agent";
 
-// Tools allowed in read-only mode
-const READONLY_TOOLS = ["read", "grep", "find", "ls"];
-// Full tool set when not in read-only mode
-const FULL_TOOLS = ["read", "bash", "edit", "write", "grep", "find", "ls"];
+// Get current working directory for tool creation
+const cwd = process.cwd();
+
+// Tools allowed in read-only mode (derived from pi coding agent package)
+const READONLY_TOOLS = createReadOnlyTools(cwd).map((t) => t.name);
+// Coding tools set when not in read-only mode (derived from pi coding agent package)
+const CODING_TOOLS = createCodingTools(cwd).map((t) => t.name);
 const CUSTOM_TYPE = "toggle-readonly";
 const STATUS_ID = "toggle-readonly";
 
@@ -73,7 +77,7 @@ export default function toggleReadonlyExtension(pi: ExtensionAPI) {
 
 			// Status check - show expected tools based on mode
 			if (arg === "status") {
-				const expectedTools = isReadOnlyMode ? READONLY_TOOLS : FULL_TOOLS;
+				const expectedTools = isReadOnlyMode ? READONLY_TOOLS : CODING_TOOLS;
 				const status = isReadOnlyMode ? "ON 🔒" : "OFF";
 				ctx.ui.notify(`Read-only: ${status} | Tools: ${expectedTools.join(", ")}`, "info");
 				return;
@@ -91,14 +95,14 @@ export default function toggleReadonlyExtension(pi: ExtensionAPI) {
 	function applyReadOnlyMode(ctx: ExtensionContext, notify: boolean) {
 		// Save current tools if not already saved (must have tools AND not already be readonly-only)
 		if (!originalTools || originalTools.length === 0) {
-			const currentTools = pi.getActiveTools().map((t) => t.name);
+			const currentTools = pi.getActiveTools();
 			// Only save if we have actual tools and not just the readonly set
 			const hasWriteAccess = currentTools.some(t => ["write", "edit", "bash"].includes(t));
 			if (currentTools.length > 0 && hasWriteAccess) {
 				originalTools = currentTools;
 			} else {
 				// Use full default set if current tools are incomplete
-				originalTools = FULL_TOOLS;
+				originalTools = CODING_TOOLS;
 			}
 		}
 
@@ -119,7 +123,7 @@ export default function toggleReadonlyExtension(pi: ExtensionAPI) {
 			// Inject a persistent message to chat history (visible to both user and agent)
 			pi.sendMessage({
 				customType: CUSTOM_TYPE,
-				content: "🔒 Read-only mode enabled (no write/edit/bash)",
+				content: `🔒 Read-only mode enabled. Available tools: ${READONLY_TOOLS.join(", ")}`,
 				display: true, // Shown in TUI chat history
 			});
 		}
@@ -133,7 +137,7 @@ export default function toggleReadonlyExtension(pi: ExtensionAPI) {
 		
 		const toolsToRestore = hasValidOriginal
 			? originalTools
-			: FULL_TOOLS;
+			: CODING_TOOLS;
 
 		pi.setActiveTools(toolsToRestore);
 		isReadOnlyMode = false;
@@ -151,7 +155,7 @@ export default function toggleReadonlyExtension(pi: ExtensionAPI) {
 			// Inject a persistent message to chat history (visible to both user and agent)
 			pi.sendMessage({
 				customType: CUSTOM_TYPE,
-				content: "🔓 Full mode restored",
+				content: `🔓 Coding mode restored. Available tools: ${toolsToRestore.join(", ")}`,
 				display: true, // Shown in TUI chat history
 			});
 		}
