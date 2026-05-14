@@ -7,3 +7,5 @@
 # git:github.com/someone/brave-search
 # npm:@someone/pdf-tools
 # git:github.com/someone/surf-workflow@v2.1.0
+
+https://github.com/monotykamary/pi-tps
